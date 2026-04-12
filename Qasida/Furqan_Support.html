@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<!--
+  【可替换内容一览 — 搜索并替换以下占位后再部署】
+  【App 显示名称】Furqan
+  【应用简介】见 .tagline 段落（中英各一）
+  【客服邮箱】477373269@qq.com
+  【隐私政策 URL】https://miaosicalapp.com:803/files/quran_eng.html
+  【工作时间 — 英文】Weekdays · 9:00 AM–12:00 PM and 2:00 PM–6:30 PM (local time).
+  【工作时间 — 中文】工作日 · 上午 9:00–12:00，下午 14:00–18:30（当地时间）。
+  【版权】Copyright © 2026 John Wick
+  【图标文件名】furqan-app-icon.png（与本 HTML 同目录）
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Page title: replace 【Furqan】 in comments / visible title if the app name changes -->
+  <title>Furqan — Support</title>
+  <meta name="description" content="Official customer support for the Furqan app. Contact, FAQ, and privacy policy.">
+  <style>
+    /* ============================================================
+       Furqan App Support — all styles inline (no external CSS/JS/fonts)
+       Primary: #007AFF · Neutrals: Apple-style grays
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.47;
+      color: #1c1c1e;
+      background: #f2f2f7;
+      min-height: 100%;
+    }
+
+    /* Hidden language toggles (pure CSS i18n; no JavaScript) */
+    .lang-toggle {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .shell {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 48px;
+      padding-bottom: max(48px, env(safe-area-inset-bottom));
+    }
+
+    /* Language switcher */
+    .lang-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 12px 0 8px;
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+    .lang-bar label {
+      font-size: 15px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: #007AFF;
+      background: #fff;
+      border: 1px solid #d1d1d6;
+      user-select: none;
+    }
+    .lang-bar label:hover { background: #f9f9f9; }
+    #lang-en:checked ~ .shell .lang-bar label[for="lang-en"],
+    #lang-zh:checked ~ .shell .lang-bar label[for="lang-zh"] {
+      background: #007AFF;
+      color: #fff;
+      border-color: #007AFF;
+    }
+
+    /* Locale panels: show one language at a time */
+    .locale { display: none; }
+    #lang-en:checked ~ .shell .locale--en,
+    #lang-zh:checked ~ .shell .locale--zh { display: block; }
+
+    /* First screen: language bar + hero together fill one viewport (no scroll to see contact) */
+    .first-screen {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* ----- Hero: centered in remaining space below language bar ----- */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px 0 24px;
+      gap: 14px;
+      min-height: 0;
+    }
+    .app-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      background: #fff;
+    }
+    .app-name {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #000;
+    }
+    .tagline {
+      margin: 0;
+      max-width: 36em;
+      font-size: 1.05rem;
+      color: #3a3a3c;
+    }
+
+    /* Contact card (prominent) */
+    .contact-card {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 8px;
+      padding: 20px 22px;
+      text-align: left;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e5e5ea;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid #007AFF;
+    }
+    .contact-card h2 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #8e8e93;
+    }
+    .contact-card a {
+      color: #007AFF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.125rem;
+      word-break: break-all;
+    }
+    .contact-card a:hover { text-decoration: underline; }
+    .contact-card a:focus-visible {
+      outline: 2px solid #007AFF;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .contact-note {
+      margin: 10px 0 0;
+      font-size: 14px;
+      color: #636366;
+    }
+
+    /* Sections below fold */
+    .section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-bottom: 16px;
+      border: 1px solid #e5e5ea;
+    }
+    .section h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #000;
+    }
+    .section p { margin: 0 0 12px; }
+    .section p:last-child { margin-bottom: 0; }
+
+    .muted { color: #636366; font-size: 15px; }
+
+    /* FAQ accordion: <details> + pure CSS polish */
+    .faq details {
+      border-bottom: 1px solid #e5e5ea;
+      padding: 14px 0;
+    }
+    .faq details:last-child { border-bottom: none; padding-bottom: 0; }
+    .faq summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+      padding-right: 8px;
+      color: #1c1c1e;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "";
+      float: right;
+      width: 10px;
+      height: 10px;
+      margin-top: 6px;
+      border-right: 2px solid #007AFF;
+      border-bottom: 2px solid #007AFF;
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+    }
+    .faq details[open] summary::after { transform: rotate(225deg); margin-top: 8px; }
+    .faq .answer {
+      margin: 12px 0 0;
+      color: #3a3a3c;
+      font-size: 16px;
+    }
+
+    .footer-legal {
+      text-align: center;
+      font-size: 13px;
+      color: #8e8e93;
+      padding: 8px 0 0;
+    }
+    .footer-legal a { color: #007AFF; text-decoration: none; }
+    .footer-legal a:hover { text-decoration: underline; }
+
+    @media (min-width: 768px) {
+      .hero { padding: 16px 0 32px; }
+      .section { padding: 26px 24px; }
+    }
+    @media (max-height: 700px) {
+      .hero { gap: 10px; padding: 8px 0 16px; }
+      .tagline { font-size: 0.95rem; }
+      .contact-card { padding: 14px 16px; margin-top: 4px; }
+      .lang-bar { padding: 8px 0 4px; padding-top: max(8px, env(safe-area-inset-top)); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pure CSS language selection: paired radio inputs (no JavaScript) -->
+  <input class="lang-toggle" type="radio" name="ui-lang" id="lang-en" checked aria-label="English">
+  <input class="lang-toggle" type="radio" name="ui-lang" id="lang-zh" aria-label="中文">
+
+  <div class="shell">
+    <!-- ===================== English content ===================== -->
+    <div class="locale locale--en" lang="en">
+      <div class="first-screen">
+        <div class="lang-bar" role="group" aria-label="Language">
+          <label for="lang-en">English</label>
+          <label for="lang-zh">中文</label>
+        </div>
+        <header class="hero">
+        <!-- App icon: bundled asset (relative path for GitHub Pages). File: 【furqan-app-icon.png】 -->
+        <img
+          class="app-icon"
+          src="furqan-app-icon.png"
+          width="120"
+          height="120"
+          alt="Furqan app icon: gold embossed open book with crescent and star on a green circular background."
+        >
+        <h1 class="app-name">Furqan</h1>
+        <p class="tagline">
+          Your ultimate companion for the Bluetooth Azan speaker. Enjoy seamless BLE connectivity, precise Azan time configuration, personalized playback control, and customizable lighting and display settings—all in one intuitive app.
+        </p>
+        <aside class="contact-card" aria-labelledby="contact-heading-en">
+          <h2 id="contact-heading-en">Contact support</h2>
+          <!-- Support email: 【477373269@qq.com】 -->
+          <a href="mailto:477373269@qq.com">477373269@qq.com</a>
+          <p class="contact-note">We respond to technical questions and feedback by email. Include your device model and app version when reporting an issue.</p>
+        </aside>
+        </header>
+      </div>
+
+      <main>
+        <section class="section" aria-labelledby="hours-heading-en">
+          <h2 id="hours-heading-en">Support hours</h2>
+          <p class="muted">Weekdays · 9:00 AM–12:00 PM and 2:00 PM–6:30 PM (local time).</p>
+        </section>
+
+        <section class="section faq" aria-labelledby="faq-heading-en">
+          <h2 id="faq-heading-en">Frequently asked questions</h2>
+
+          <details>
+            <summary>How do I connect my Azan speaker?</summary>
+            <p class="answer">Open Furqan, enable Bluetooth on your phone, then follow the in-app pairing steps. Keep the speaker nearby and powered on until pairing completes.</p>
+          </details>
+          <details>
+            <summary>The speaker does not appear in the list. What should I try?</summary>
+            <p class="answer">Restart Bluetooth on your phone, power-cycle the speaker, and ensure it is not connected to another device. Then scan again from the app.</p>
+          </details>
+          <details>
+            <summary>How do I set or adjust Azan times?</summary>
+            <p class="answer">Use the Azan time settings in the app to configure schedules and parameters. Save your changes and confirm they sync to the speaker when prompted.</p>
+          </details>
+          <details>
+            <summary>Can I customize lighting and display behavior?</summary>
+            <p class="answer">Yes. Furqan provides options to adjust lighting and display modes for supported hardware. Available options depend on your speaker model.</p>
+          </details>
+          <details>
+            <summary>Playback or BLE connection drops sometimes. Any tips?</summary>
+            <p class="answer">Keep the app updated, avoid long distances or heavy wireless interference, and disable battery optimizations that may restrict Bluetooth in the background.</p>
+          </details>
+        </section>
+
+        <section class="section" aria-labelledby="feedback-heading-en">
+          <h2 id="feedback-heading-en">Feedback and bug reports</h2>
+          <p>Please email <a href="mailto:477373269@qq.com">477373269@qq.com</a> with a short description of the issue, steps to reproduce, and your phone model and Furqan version. Screenshots or screen recordings are helpful when relevant.</p>
+        </section>
+
+        <section class="section" aria-labelledby="privacy-heading-en">
+          <h2 id="privacy-heading-en">Privacy</h2>
+          <p>Our privacy practices are described in the privacy policy.</p>
+          <!-- Privacy policy URL: 【https://miaosicalapp.com:803/files/quran_eng.html】 -->
+          <p><a href="https://miaosicalapp.com:803/files/quran_eng.html" rel="noopener noreferrer">Privacy Policy</a></p>
+        </section>
+      </main>
+
+      <footer class="footer-legal">
+        <!-- Copyright: 【Copyright © 2026 John Wick】 -->
+        <p>Copyright © 2026 John Wick</p>
+        <p><a href="https://miaosicalapp.com:803/files/quran_eng.html" rel="noopener noreferrer">Privacy Policy</a></p>
+      </footer>
+    </div>
+
+    <!-- ===================== 中文内容 ===================== -->
+    <div class="locale locale--zh" lang="zh-Hans">
+      <div class="first-screen">
+        <div class="lang-bar" role="group" aria-label="语言">
+          <label for="lang-en">English</label>
+          <label for="lang-zh">中文</label>
+        </div>
+        <header class="hero">
+        <img
+          class="app-icon"
+          src="furqan-app-icon.png"
+          width="120"
+          height="120"
+          alt="Furqan 应用图标：绿色圆形背景上的金色浮雕书本、星月与几何纹样。"
+        >
+        <h1 class="app-name">Furqan</h1>
+        <p class="tagline">
+          您使用蓝牙宣礼音箱的得力助手。通过 BLE 稳定连接，精确配置宣礼时间，个性化播放控制，并可在支持的设备上自定义灯光与显示设置，界面直观易用。
+        </p>
+        <aside class="contact-card" aria-labelledby="contact-heading-zh">
+          <h2 id="contact-heading-zh">联系支持</h2>
+          <a href="mailto:477373269@qq.com">477373269@qq.com</a>
+          <p class="contact-note">技术咨询与反馈请发送邮件。报告问题时请附上设备型号与应用版本信息。</p>
+        </aside>
+        </header>
+      </div>
+
+      <main>
+        <section class="section" aria-labelledby="hours-heading-zh">
+          <h2 id="hours-heading-zh">客服工作时间</h2>
+          <p class="muted">工作日 · 上午 9:00–12:00，下午 14:00–18:30（当地时间）。</p>
+        </section>
+
+        <section class="section faq" aria-labelledby="faq-heading-zh">
+          <h2 id="faq-heading-zh">常见问题</h2>
+
+          <details>
+            <summary>如何连接宣礼音箱？</summary>
+            <p class="answer">打开 Furqan，在手机系统设置中开启蓝牙，然后按应用内配对引导操作。请保持音箱开机并靠近手机直至配对完成。</p>
+          </details>
+          <details>
+            <summary>列表里找不到音箱怎么办？</summary>
+            <p class="answer">可尝试关闭并重新打开手机蓝牙、重启音箱，并确认音箱未与其他设备保持连接，然后在应用中重新扫描。</p>
+          </details>
+          <details>
+            <summary>如何设置或调整宣礼时间？</summary>
+            <p class="answer">在应用的宣礼时间相关设置中配置时间与参数，保存后按提示确认已同步到音箱。</p>
+          </details>
+          <details>
+            <summary>可以自定义灯光和显示吗？</summary>
+            <p class="answer">可以。Furqan 为支持的硬件提供灯光与显示模式等选项，具体以您的音箱型号为准。</p>
+          </details>
+          <details>
+            <summary>播放或 BLE 连接偶尔中断怎么办？</summary>
+            <p class="answer">请保持应用为最新版本，尽量靠近设备并减少强无线干扰；如系统有省电策略，请避免限制本应用在后台使用蓝牙。</p>
+          </details>
+        </section>
+
+        <section class="section" aria-labelledby="feedback-heading-zh">
+          <h2 id="feedback-heading-zh">功能反馈与问题反馈</h2>
+          <p>请发送邮件至 <a href="mailto:477373269@qq.com">477373269@qq.com</a>，简要说明问题、复现步骤，并注明手机型号与 Furqan 版本。必要时可附上截图或录屏。</p>
+        </section>
+
+        <section class="section" aria-labelledby="privacy-heading-zh">
+          <h2 id="privacy-heading-zh">隐私</h2>
+          <p>我们的隐私处理方式请参阅隐私政策全文。</p>
+          <p><a href="https://miaosicalapp.com:803/files/quran_eng.html" rel="noopener noreferrer">隐私政策</a></p>
+        </section>
+      </main>
+
+      <footer class="footer-legal">
+        <p>Copyright © 2026 John Wick</p>
+        <p><a href="https://miaosicalapp.com:803/files/quran_eng.html" rel="noopener noreferrer">隐私政策</a></p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
